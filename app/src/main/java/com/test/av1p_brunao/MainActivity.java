@@ -20,43 +20,41 @@ public class MainActivity extends AppCompatActivity {
         editPrecoAlcool = findViewById(R.id.editPrecoAlcool);
         editPrecoGasolina = findViewById(R.id.editPrecoGasolina);
         textViewResultado = findViewById(R.id.textViewResultado);
+    }
+    public void calcularPreco(View view){
+        String precoAlcool = editPrecoAlcool.getText().toString();
+        String precoGasolina = editPrecoGasolina.getText().toString();
 
+        Boolean camposValidados = this.validarCampos(precoAlcool, precoGasolina);
+        if (camposValidados){
+            this.calcularMelhorPreco(precoAlcool, precoGasolina);
+        }
+        else{
+            textViewResultado.setText("Preencha os campos primeiro!");
+        }
+    }
 
-        public void calcularPreco(View view){
-            String precoAlcool = editPrecoAlcool.getText().toString();
-            String precoGasolina = editPrecoGasolina.getText().toString();
-
-            Boolean camposValidados = this.validarCampos(precoAlcool, precoGasolina);
-            if (camposValidados){
-                this.calcularMelhorPreco(precoAlcool, precoGasolina);
-            }
-            else{
-                textViewResultado.setText("Preencha os campos primeiro!");
-            }
+    public Boolean validarCampos(String pAlcool, String pGasolina) {
+        Boolean camposValidados = true;
+        if (pAlcool == null || pAlcool.equals("")) {
+            camposValidados = false;
+        }
+        else if (pGasolina == null || pGasolina.equals("")) {
+            camposValidados = false;
         }
 
-        public Boolean validarCampos(String pAlcool, String pGasolina) {
-            Boolean camposValidados = true;
-            if (pAlcool !== null || pAlcool.equals("")) {
-                camposValidados = false;
-            }
-            else if (pGasolina !== null || pGasolina.equals("")) {
-                camposValidados = false;
-            }
+        return camposValidados;
+    }
 
-            return camposValidados;
-        }
+    public void calcularMelhorPreco(String pAlcool, String pGasolina){
+        Double precoAlcool = Double.parseDouble(pAlcool);
+        Double precoGasolina = Double.parseDouble(pGasolina);
 
-        public void CalcularMelhorPreco(String pAlcool, String pGasolina){
-            Double precoAlcool = Double.parseDouble(pAlcool);
-            Double precoGasolina = Double.parseDouble(pGasolina);
-
-            Double resultado = precoAlcool/precoGasolina;
-            if (resultado > 0.7){
-                textViewResultado.setText("Melhor Utilizar a Gasolina!");
-            }else{
-                textViewResultado.setText("Melhor Utilizar o Alcool!");
-            }
+        Double resultado = precoAlcool/precoGasolina;
+        if (resultado > 0.7){
+            textViewResultado.setText("Melhor Utilizar a Gasolina!");
+        }else{
+            textViewResultado.setText("Melhor Utilizar o Alcool!");
         }
     }
 }
